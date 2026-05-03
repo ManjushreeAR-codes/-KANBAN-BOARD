@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kanban Board</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated green background blob (the purple & orange ones are CSS ::before/::after) -->
+  <div class="bg-blob"></div>
+
+  <!-- ───── HEADER ───── -->
+  <header>
+    <div>
+      <h1>My Kanban Board</h1>
+      <p class="subtitle">Drag cards between columns · Changes are saved automatically</p>
+    </div>
+    <!-- Live stats — updated by JavaScript -->
+    <div class="header-stats">
+      <div class="stat">
+        <span class="stat-num" id="stat-total">0</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-progress">0</span>
+        <span class="stat-label">In Progress</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num" id="stat-done">0</span>
+        <span class="stat-label">Done</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ───── BOARD ───── -->
+  <main class="board">
+
+    <!-- COLUMN 1: To Do -->
+    <section class="column" id="col-todo" data-status="todo">
+      <div class="col-banner"></div>
+      <div class="col-inner">
+        <div class="col-header">
+          <span class="col-dot"></span>
+          <h2>To Do</h2>
+          <span class="col-count" id="count-todo">0</span>
+        </div>
+        <div class="cards-area" id="area-todo"></div>
+        <button class="btn-add" onclick="showForm('todo')">+ Add card</button>
+        <div class="add-form hidden" id="form-todo">
+          <textarea id="input-todo" placeholder="What needs to be done?" rows="3"></textarea>
+          <div class="form-actions">
+            <button class="btn-save" onclick="addCard('todo')">Add</button>
+            <button class="btn-cancel" onclick="hideForm('todo')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUMN 2: In Progress -->
+    <section class="column" id="col-inprogress" data-status="inprogress">
+      <div class="col-banner"></div>
+      <div class="col-inner">
+        <div class="col-header">
+          <span class="col-dot"></span>
+          <h2>In Progress</h2>
+          <span class="col-count" id="count-inprogress">0</span>
+        </div>
+        <div class="cards-area" id="area-inprogress"></div>
+        <button class="btn-add" onclick="showForm('inprogress')">+ Add card</button>
+        <div class="add-form hidden" id="form-inprogress">
+          <textarea id="input-inprogress" placeholder="What are you working on?" rows="3"></textarea>
+          <div class="form-actions">
+            <button class="btn-save" onclick="addCard('inprogress')">Add</button>
+            <button class="btn-cancel" onclick="hideForm('inprogress')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUMN 3: Done -->
+    <section class="column" id="col-done" data-status="done">
+      <div class="col-banner"></div>
+      <div class="col-inner">
+        <div class="col-header">
+          <span class="col-dot"></span>
+          <h2>Done</h2>
+          <span class="col-count" id="count-done">0</span>
+        </div>
+        <div class="cards-area" id="area-done"></div>
+        <button class="btn-add" onclick="showForm('done')">+ Add card</button>
+        <div class="add-form hidden" id="form-done">
+          <textarea id="input-done" placeholder="Something you finished?" rows="3"></textarea>
+          <div class="form-actions">
+            <button class="btn-save" onclick="addCard('done')">Add</button>
+            <button class="btn-cancel" onclick="hideForm('done')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ───── EDIT MODAL ───── -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal">
+      <h3>Edit card</h3>
+      <textarea id="modal-input" rows="4"></textarea>
+      <div class="form-actions">
+        <button class="btn-save" onclick="saveEdit()">Save changes</button>
+        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
